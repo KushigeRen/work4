@@ -6,10 +6,11 @@ def create_csv()
     puts "拡張子を除いたファイル名を入力してください"
     title = gets.chomp
     ##メモ内容入力
-    puts "メモしたい内容を入力してEnterを押してください。"
-    memo = gets.chomp
+    puts "メモしたい内容を入力してctrl+Dを押してください。"
+    memo = STDIN.read
+    csv_options = {quote_char: ''}
     ##csv出力
-    CSV.open("#{title}.csv","w") do |csv|
+    CSV.open("#{title}.csv","w", **csv_options) do |csv|
         csv << [memo]
     end
 end
@@ -22,9 +23,10 @@ def edit_csv()
     ##ファイルの存在確認
     if File.exist?("./#{title}.csv")
         ##メモ内容上書き
-        puts "編集内容を入力してEnterを押してください"
-        memo = gets.chomp
-        CSV.open("#{title}.csv","w") do |csv|
+        puts "編集内容を入力してctrl+Dを押してください"
+        memo = STDIN.read
+        csv_options = {quote_char: ''}
+        CSV.open("#{title}.csv","w", **csv_options) do |csv|
             csv << [memo]
         end
     else
